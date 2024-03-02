@@ -50,3 +50,15 @@ module.exports = {
 Find:- Returns an array
 FindOne:- Returns the item on 0 index
 */
+
+// Deleting the data
+
+userRouter.delete("/delete/:user_id", async(req, res) =>{
+    try {
+        const {user_id} = req.params;
+        const result = await UserModel.findByIdAndDelete(user_id);
+        console.log(result);
+    } catch (error) {
+        res.send({message : error.message})
+    }
+})
