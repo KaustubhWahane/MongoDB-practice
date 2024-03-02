@@ -15,12 +15,38 @@ userRouter.get("/",  async (req,res) =>{
     // Find the data from DB and return in response and find the method is Async
 
 })
+
+// Posting the data 
 userRouter.post("/create" , async(req,res) =>{
-    const user = req.body;
+    try {
+        const user = req.body;
+        const userInDb = new UserModel(user);
+        // const userInDb = new UserModel.create(user);
+        await userInDb.save();
+        res.send(userInDb)
+    } catch (error) {
+        res.send(error?.message)
+    }
     console.log(user);
     res.send(user);
+})
+
+// Patching the data 
+userRouter.patch("/update/:user_id" , async (req, res) =>{
+    try {
+        const {user_id} = req.params;
+        const result = await UserModel.find().where('_id', user_id);
+        res.send(result);
+    } catch (error) {
+        
+    }
 })
 
 module.exports = {
     userRouter
 };
+
+/*
+Find:- Returns an array
+FindOne:- Returns the item on 0 index
+*/
