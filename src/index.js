@@ -6,6 +6,9 @@ const { userRouter } = require("./routes/user.router");
 
 const app = express();
 
+// To parse the body and extract it
+app.use(express.json());
+
 app.get("/",(req,res) =>{
     res.send({message : "Hello"});
 })
