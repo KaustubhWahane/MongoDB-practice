@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 
 const {PORT, MONGODB_URL} = require("./constants");
+const { userRouter } = require("./routes/user.router");
 
 const app = express();
 
@@ -20,11 +21,9 @@ async function Connection (){
         console.log(error);
 }
 }
-
 // Connection();
 
 // Start server first then Connect to MongoDB
-
 const startServerFirst = () => {
     app.listen(PORT , async () => {
         try {
@@ -38,5 +37,6 @@ const startServerFirst = () => {
     })
 
 }
+startServerFirst();
 
-startServerFirst()
+app.use("/users" , userRouter);
